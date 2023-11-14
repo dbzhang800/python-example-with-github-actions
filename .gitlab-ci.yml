@@ -1,8 +1,16 @@
 
-image: python:latest
-
-test:
+test_linux:
+  image: python:latest
   script:
     - pip install pytest
     - pytest
 
+test_win32:
+  tags:
+    - windows
+  script:
+    - choco install python --yes --version 3.11.0
+    - $env:Path = "C:\Python311\;C:\Python311\Scripts\;" + $env:Path
+    - python -m pip install --upgrade pip
+    - pip install pytest
+    - pytest
